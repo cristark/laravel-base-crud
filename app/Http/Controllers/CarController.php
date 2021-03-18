@@ -41,7 +41,20 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
+        // richiesta nuovi dati
         $data = $request->all();
+
+        // nuova istanza
+        $carsNew = new Car();
+
+        // scorciatoia inserimento campi, necessita l'inserimento del fillable in Model
+        $carsNew->fill($data);
+
+        // salvataggio e invio a db
+        $carsNew->save();
+
+        // redirect
+        return redirect()->route('cars.index');
     }
 
     /**
