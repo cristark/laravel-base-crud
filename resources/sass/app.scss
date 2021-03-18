@@ -1,3 +1,5 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
 * {
     margin: 0;
     padding: 0;
@@ -37,24 +39,9 @@ header {
         margin: 50px 0;
     }
 
-    .car_box {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        
-        .box {
-            background: lightblue;
-            border: 1px solid black;
-            padding: 10px;
-            border-radius: 5px;
+    button {
+        a {
+            color: #fff;
         }
-    }
-}
-
-.model_container {
-    text-align: center;
-
-    h2 {
-        margin-bottom: 20px;
     }
 }
