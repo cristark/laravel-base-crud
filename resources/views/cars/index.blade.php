@@ -23,11 +23,19 @@
                     <th scope="row">{{$modello->id}}</th>
                     <td>{{$modello->marca}}</td>
                     <td>{{$modello->modello}}</td>
-                    <td><a href="{{route('cars.show', ['car' => $modello->id])}}">Dettagli</a></td>
+                    <td class="d-inline-flex">
+                        <a class="btn btn-primary" href="{{route('cars.show', ['car' => $modello->id])}}">Dettagli</a>
+                        <a class="btn btn-warning" href="{{route('cars.edit', ['car' => $modello->id])}}">Modifica</a>
+                        <form method="post" action="{{route('cars.destroy', ['car' => $modello->id])}}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" href="">Elimina</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <button type="button" class="btn btn-primary"><a href="{{route('cars.create')}}">Aggiungi un Nuovo Modello</a></button>
+        <a class="btn btn-primary" href="{{route('cars.create')}}">Aggiungi un Nuovo Modello</a>
     </div>
 @endsection

@@ -41,19 +41,24 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        // richiesta nuovi dati
         $data = $request->all();
 
-        // nuova istanza
+        $request->validate([
+            'marca' => 'required|max:35',
+            'modello' => 'required|max:30',
+            'colore' => 'required|max:30',
+            'cavalli' => 'required|numeric',
+            'cilindri' => 'required|numeric',
+            'guida' => 'alpha',
+            'prezzo' => 'numeric',
+        ]);
+
         $carsNew = new Car();
 
-        // scorciatoia inserimento campi, necessita l'inserimento del fillable in Model
         $carsNew->fill($data);
 
-        // salvataggio e invio a db
         $carsNew->save();
 
-        // redirect
         return redirect()->route('cars.index');
     }
 
@@ -63,14 +68,12 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Car $car)
     {
-        $auto = Car::find($id);
-
-        if($auto) {
+        if($car) {
             
             $data = [
-                'modello' => $auto
+                'modello' => $car
             ];
 
             return view('cars.show', $data);
@@ -85,9 +88,18 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
-        //
+        if($car) {
+            
+            $data = [
+                'modello' => $car
+            ];
+
+            return view('cars.edit', $data);
+        }
+
+        abort('404');
     }
 
     /**
@@ -97,9 +109,23 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Car $car)
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'marca' => 'required|max:35',
+            'modello' => 'required|max:30',
+            'colore' => 'required|max:30',
+            'cavalli' => 'required|numeric',
+            'cilindri' => 'required|numeric',
+            'guida' => 'alpha',
+            'prezzo' => 'numeric',
+        ]);
+
+        $car->update($data);
+
+        return redirect()->route('cars.show', $car);
     }
 
     /**
