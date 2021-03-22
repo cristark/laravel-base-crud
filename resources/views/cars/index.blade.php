@@ -8,6 +8,11 @@
 @section('content')
     <div class="container">
         <h1>Lista Auto</h1>
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <table class="table table-hover table-dark">
             <thead>
                 <tr>
